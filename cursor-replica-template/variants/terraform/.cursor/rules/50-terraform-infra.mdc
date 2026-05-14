@@ -1,0 +1,26 @@
+---
+description: Terraform-specific safety and workflow rules
+alwaysApply: true
+---
+
+This repository is Terraform infrastructure code.
+
+Planning and editing rules:
+
+- Be conservative with changes that affect providers, backends, remote state, IAM, networking, or cross-environment modules.
+- Prefer understanding the module structure, variables, outputs, and environment boundaries before editing.
+- Do not assume a resource rename is safe; check whether it implies destroy-and-recreate behavior.
+- Avoid broad refactors unless explicitly requested.
+
+Verification:
+
+- Prefer `terraform fmt` and `terraform validate` where available.
+- If the repo has wrapper scripts or CI entrypoints, use those instead of raw Terraform commands.
+- If a plan step requires credentials or remote backend access that is not available locally, say that explicitly.
+
+Review focus:
+
+- unintended destroy/recreate risk
+- variable or output compatibility breaks
+- environment drift or module interface changes
+- security-sensitive changes in IAM, networking, secrets, or public exposure

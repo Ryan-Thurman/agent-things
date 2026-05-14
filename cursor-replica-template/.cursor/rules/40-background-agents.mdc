@@ -1,0 +1,18 @@
+---
+description: Use Cursor background agents as sidecar workers, not as the coordinator
+alwaysApply: true
+---
+
+When background agents are available, use them for parallel sidecar tasks such as:
+
+- researching an unfamiliar subsystem
+- checking test failures
+- verifying a risky migration path
+- preparing a second opinion on a change
+
+Guidelines:
+
+- Keep the main chat as the coordinator that synthesizes results.
+- Delegate bounded tasks with clear outputs.
+- Do not launch multiple agents that edit the same files at the same time.
+- Prefer background agents for read-heavy or isolated tasks, not for vague open-ended delegation.

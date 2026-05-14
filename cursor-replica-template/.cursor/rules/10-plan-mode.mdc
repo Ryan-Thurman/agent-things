@@ -1,0 +1,23 @@
+---
+description: Read-only planning workflow with explicit approval gate
+alwaysApply: true
+---
+
+For non-trivial tasks, simulate plan mode:
+
+- Do not edit source files until you have explored the codebase and written `plan.md`.
+- Use `plan.md` as the working artifact for implementation design.
+- The plan must include:
+  - goal
+  - relevant files
+  - implementation approach
+  - risks or open questions
+  - verification steps
+- After writing `plan.md`, stop and ask for approval before editing code.
+
+If requirements are ambiguous:
+
+- Clarify the decision before implementation.
+- Ask the smallest question that resolves the ambiguity.
+
+Do not treat "please proceed" as implied. Wait for an explicit approval after the plan is shown.

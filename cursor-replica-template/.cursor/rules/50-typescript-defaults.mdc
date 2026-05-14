@@ -1,0 +1,20 @@
+---
+description: TypeScript repo defaults for implementation and verification
+alwaysApply: true
+---
+
+Assume this is a normal single-repo TypeScript codebase unless the files clearly indicate otherwise.
+
+TypeScript workflow:
+
+- Follow the existing package manager and script conventions already present in the repo.
+- Prefer existing scripts in `package.json` over inventing new commands.
+- Keep changes typed and consistent with the repo's current TypeScript strictness.
+- Avoid introducing `any` unless the surrounding code already uses it and there is a clear reason.
+- Reuse existing utility types, validation helpers, and patterns before adding new abstractions.
+
+Verification:
+
+- Prefer targeted checks first, such as the affected test file, local typecheck, or relevant lint command.
+- If the repo exposes scripts for `test`, `lint`, or `typecheck`, prefer those over ad hoc commands.
+- If a full repo-wide check would be expensive, say so and run the narrowest meaningful alternative first.

@@ -1,0 +1,21 @@
+---
+description: Minimal diffs and focused verification
+alwaysApply: true
+---
+
+Implementation rules:
+
+- Prefer minimal edits over broad rewrites.
+- Preserve naming, structure, and conventions already used by the repo.
+- Avoid unrelated cleanup unless it directly blocks the requested change.
+- Read nearby code before modifying behavior.
+
+Verification rules:
+
+- Run the narrowest useful check first.
+- If tests exist for the changed area, prefer those before wider suites.
+- If you cannot run validation, say so clearly.
+- Final summaries must include:
+  - what changed
+  - what was verified
+  - any remaining risks or gaps

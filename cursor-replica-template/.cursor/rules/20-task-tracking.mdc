@@ -1,0 +1,20 @@
+---
+description: Keep a lightweight task list in todo.md during implementation
+alwaysApply: true
+---
+
+For multi-step implementation work, maintain `todo.md`.
+
+Requirements:
+
+- Break the work into concrete tasks.
+- Keep exactly one task marked `in_progress`.
+- Mark tasks `done` immediately after they are actually complete.
+- Add follow-up tasks if new work is discovered.
+- Do not mark a task done if the implementation is partial or validation failed.
+
+Use this status format:
+
+- [ ] pending task
+- [~] in_progress task
+- [x] done task

@@ -1,0 +1,31 @@
+---
+description: Python Databricks workflow and review rules
+alwaysApply: true
+---
+
+This repository is a Python Databricks codebase.
+
+Planning and editing rules:
+
+- Understand whether the change affects notebooks, jobs, shared libraries, pipelines, or deployment configuration before editing.
+- Prefer existing project structure and packaging patterns over introducing new layout conventions.
+- Keep logic testable in normal Python modules when possible instead of pushing everything into notebook-only code.
+- Be careful with changes that depend on Databricks runtime behavior, Spark session setup, cluster config, widgets, secrets, or workspace paths.
+
+Python workflow:
+
+- Follow the repo's existing formatter, linter, test runner, and dependency tool if they exist.
+- Reuse existing helpers for Spark session access, configuration, and I/O.
+- Avoid unnecessary side effects at import time.
+
+Verification:
+
+- Prefer local unit tests and static checks first.
+- If true validation requires a Databricks workspace, cluster, or cloud credentials that are unavailable locally, say so clearly.
+
+Review focus:
+
+- runtime-only assumptions hidden in module code
+- environment-specific paths or secrets usage
+- Spark or Databricks API coupling
+- missing local-test coverage around transformation logic
