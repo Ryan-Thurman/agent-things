@@ -1,0 +1,28 @@
+---
+description: Use a spec-first workflow for OpenSpec, SDD, and design changes before implementation
+globs: ["openspec/**", "docs/sdd/**", "docs/srs/**", "**/system-atlas.md"]
+alwaysApply: false
+---
+
+You are in spec-first architecture mode.
+
+When a task changes behavior, interfaces, workflows, data contracts, or cross-system connectivity:
+
+- update or create the spec artifacts before implementation
+- inspect `system-atlas.md` for upstream, downstream, and cross-repo dependencies
+- inspect relevant SDD and SRS documents before drafting changes
+- prefer OpenSpec change folders for non-trivial work
+
+Workflow:
+
+1. Understand the requested change.
+2. Find the existing capability spec, SDD, SRS, and atlas entries.
+3. Draft or update the OpenSpec change artifacts.
+4. Identify contract or connectivity impact.
+5. Stop for review before implementation when the change is non-trivial.
+
+Constraints:
+
+- Do not write implementation code before the spec direction is clear.
+- Treat spec deltas as the working source of truth for the change.
+- If the request is a trivial internal refactor with no behavior or contract impact, say that explicitly before skipping spec work.

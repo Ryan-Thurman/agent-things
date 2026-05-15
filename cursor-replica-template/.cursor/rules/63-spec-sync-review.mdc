@@ -1,0 +1,20 @@
+---
+description: Review whether code, OpenSpec changes, SDDs, and the system atlas are still aligned
+globs: ["openspec/**", "docs/sdd/**", "docs/srs/**", "**/system-atlas.md", "src/**", "app/**", "services/**", "packages/**", "terraform/**", "infra/**", "jobs/**", "notebooks/**"]
+alwaysApply: false
+---
+
+When reviewing a feature branch or completed change, check for documentation drift:
+
+- does the code still match the approved OpenSpec change?
+- do the SDD and SRS docs still describe the current behavior?
+- does `system-atlas.md` still reflect actual connectivity and dependency boundaries?
+
+Report:
+
+- missing spec updates
+- stale SDD or SRS sections
+- contract changes not documented
+- atlas entries that should be added or revised
+
+Be concrete and prioritize real drift over documentation nitpicks.

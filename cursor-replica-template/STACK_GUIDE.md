@@ -8,6 +8,13 @@ For most repos, treat the base template as the standard:
 
 - `AGENTS.md`
 - `.cursor/rules/*.mdc`
+- `openspec/`
+- `docs/sdd/`
+- `docs/srs/`
+- `system-atlas.md`
+
+Optional fallback artifacts:
+
 - `plan.md`
 - `todo.md`
 
@@ -31,13 +38,21 @@ This keeps the workflow grounded in normal Python engineering while accounting f
 
 ## Practical Recommendation
 
-Use the same three Cursor modes in every repo:
+Use the same core Cursor modes in every repo:
 
-- `Plan`
-- `Build`
+- `Plan: Spec`
+- `Build: Spec Apply`
 - `Review`
+- `Review: Standards`
+- `Review: Performance`
+- `Update: SDD`
+- `Update: SRS`
 
-Do not create separate modes per stack unless your team has materially different workflows. Keep the mode system stable and let the repo rules supply the stack-specific behavior.
+Optionally add:
+
+- `Review: Spec Sync`
+
+Keep the mode system stable and let the repo rules supply the stack-specific behavior.
 
 ## Repo-Specific AGENTS Files
 

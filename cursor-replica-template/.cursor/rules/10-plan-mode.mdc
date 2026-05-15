@@ -1,19 +1,25 @@
 ---
-description: Read-only planning workflow with explicit approval gate
+description: OpenSpec-first planning workflow with explicit approval gate
 alwaysApply: true
 ---
 
-For non-trivial tasks, simulate plan mode:
+For non-trivial tasks, simulate planning mode:
 
-- Do not edit source files until you have explored the codebase and written `plan.md`.
-- Use `plan.md` as the working artifact for implementation design.
-- The plan must include:
-  - goal
-  - relevant files
-  - implementation approach
-  - risks or open questions
-  - verification steps
-- After writing `plan.md`, stop and ask for approval before editing code.
+- Do not edit source files until you have explored the codebase and chosen the correct planning artifact.
+- If it is unclear whether the task needs OpenSpec, use `review-skills/spec-triage/SKILL.md` to decide between an OpenSpec change, `plan.md`, or direct implementation.
+- Use OpenSpec change artifacts as the default planning surface when the work affects:
+  - behavior
+  - interfaces
+  - workflows
+  - data contracts
+  - cross-system or cross-repo boundaries
+- Before drafting or updating an OpenSpec change, inspect:
+  - `openspec/specs/`
+  - `docs/sdd/`
+  - `docs/srs/`
+  - `system-atlas.md`
+- Use `plan.md` only for internal refactors or tightly scoped implementation work that does not need spec artifacts.
+- After writing the relevant OpenSpec change or `plan.md`, stop and ask for approval before editing code.
 
 If requirements are ambiguous:
 

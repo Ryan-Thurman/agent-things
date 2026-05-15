@@ -1,5 +1,8 @@
 # Plan
 
+Use this file only for implementation planning that does not need OpenSpec artifacts.
+If the change affects behavior, interfaces, workflows, data contracts, or cross-system boundaries, plan in `openspec/changes/` instead.
+
 ## Goal
 
 Describe the user-visible outcome in one or two sentences.

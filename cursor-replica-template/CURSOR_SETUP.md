@@ -1,50 +1,71 @@
 # Cursor Setup
 
-This directory is the repo-committable part of the workflow.
+This template is optimized for a Cursor + OpenSpec workflow.
 
-Assumption for this tailored version:
+For a multi-repo workspace rollout, see [WORKSPACE_CONTEXT_GUIDE.md](/Users/mac/workspaces/agent-things/cursor-replica-template/WORKSPACE_CONTEXT_GUIDE.md).
+For shared cross-repo feature planning, use [workspace-docs-template](/Users/mac/workspaces/agent-things/cursor-replica-template/workspace-docs-template).
 
-- most repos are standard TypeScript repos
-- one repo is Terraform infrastructure
-- one repo is Python for Databricks
+## Canonical Repo Artifacts
 
-What can live in the repo:
+Keep these in the repo:
 
 - `AGENTS.md`
 - `.cursor/rules/*.mdc`
-- `plan.md`
-- `todo.md`
-- `review-skills/*`
+- `openspec/`
+- `docs/sdd/`
+- `docs/srs/`
+- `system-atlas.md`
 
-Optional stack overlays also live here:
+Optional fallback artifacts:
 
-- `variants/terraform/.cursor/rules/*.mdc`
-- `variants/python-databricks/.cursor/rules/*.mdc`
+- `plan.md` for internal work that does not need OpenSpec
+- `todo.md` for non-spec task tracking
 
-What still needs to be configured manually in Cursor:
+Reusable skills kept in this template:
 
-- Custom Modes
-- keyboard shortcuts for mode switching
-- Background Agent usage preferences
+- `review-skills/spec-triage`
+- `review-skills/pr-style-standards`
+- `review-skills/pr-performance`
+- `review-skills/sdd-update`
+- `review-skills/srs-update`
 
-Official references:
+## Workflow
 
-- Rules: https://docs.cursor.com/en/context/rules
-- Modes: https://docs.cursor.com/chat/custom-modes
-- Background Agents: https://docs.cursor.com/en/background-agents
+For non-trivial work:
+
+1. If scope is unclear, use `spec-triage` to decide the path.
+2. Use `Plan: Spec` when the task needs OpenSpec planning.
+3. Draft or update the OpenSpec change.
+4. Implement from the approved spec in `Build: Spec Apply`.
+5. Run `Review`, `Review: Standards`, and `Review: Performance` as needed.
+6. Run `Update: SDD` when the change affects behavior or workflows.
+7. Run `Update: SRS` when the change affects interfaces, validation, or requirements.
+8. Run `Review: Spec Sync` when you want a final drift check.
+
+Use `plan.md` only when the work is internal enough that creating an OpenSpec change would be noise.
+
+## Recommended Cursor Modes
+
+Create these custom modes in Cursor:
+
+- `Plan: Spec`
+- `Build: Spec Apply`
+- `Review: Spec Sync`
+- `Update: SDD`
+- `Update: SRS`
+- `Review: Standards`
+- `Review: Performance`
+
+Mode prompts live in:
+
+- [SPEC_MODE_PROMPTS.md](/Users/mac/workspaces/agent-things/cursor-replica-template/SPEC_MODE_PROMPTS.md)
+- [REVIEW_MODE_PROMPTS.md](/Users/mac/workspaces/agent-things/cursor-replica-template/REVIEW_MODE_PROMPTS.md)
 
 ## Repo Types
 
 ### Standard TypeScript Repo
 
-Use the base files directly:
-
-- `AGENTS.md`
-- `.cursor/rules/*.mdc`
-- `plan.md`
-- `todo.md`
-
-The base rules are optimized for this case.
+Use the base files directly.
 
 If you want a pre-tuned root agent file, use:
 
@@ -70,135 +91,24 @@ If you want a pre-tuned root agent file, use:
 
 - `variants/python-databricks/AGENTS.md`
 
-## Recommended Modes
+## OpenSpec Templates
 
-Cursor's docs describe:
+Use `openspec-template/` as the single template source for:
 
-- `Ask` as read-only exploration
-- `Agent` as full implementation mode
-- `Custom` modes as user-defined combinations of tools and instructions
+- `system-atlas.md`
+- `docs/sdd/`
+- `docs/srs/`
 
-If your Cursor build has Custom Modes enabled, create these three modes.
-
-### 1. Plan
-
-Suggested tool access:
-
-- codebase search
-- read file
-- terminal
-
-Suggested instructions:
-
-```md
-You are in planning mode.
-
-Do not modify source files.
-Explore the codebase first, identify the relevant files and patterns, and write a concrete implementation plan to `plan.md`.
-
-The plan must include:
-- goal
-- relevant files
-- approach
-- risks or open questions
-- verification steps
-
-After writing `plan.md`, stop and ask for explicit approval before making any code changes.
-```
-
-### 2. Build
-
-Suggested tool access:
-
-- full agent tools
-- terminal
-- edit and apply tools
-
-Suggested instructions:
-
-```md
-Implement only after `plan.md` has been approved.
-
-Keep `todo.md` updated during execution.
-Use minimal diffs, preserve existing patterns, and run focused verification before finishing.
-
-Your final response must state:
-- what changed
-- what was verified
-- remaining risks
-```
-
-### 3. Review
-
-Suggested tool access:
-
-- codebase search
-- read file
-- terminal
-
-Suggested instructions:
-
-```md
-You are in review mode.
-
-Do not edit code unless explicitly asked.
-Review the current diff, changed files, and validation results for bugs, regressions, missing tests, and risky assumptions.
-
-Lead with findings. Keep any summary brief and secondary.
-```
-
-## If Custom Modes Are Not Available
-
-Use:
-
-- `Ask` for planning and read-only exploration
-- `Agent` for implementation
-
-Then paste one of these short prompts at the start of the chat.
-
-Planning prompt:
-
-```md
-Work in read-only planning mode. Explore first, write `plan.md`, and stop for approval before editing code.
-```
-
-Implementation prompt:
-
-```md
-Implement the approved `plan.md`, keep `todo.md` updated, and finish with focused verification plus a short risk summary.
-```
-
-## Background Agent Pattern
-
-Use background agents as sidecar workers for tasks like:
-
-- investigate a subsystem
-- run a longer validation step
-- produce a second opinion on a risky change
-
-Keep the main chat as the coordinator.
-
-Good example:
-
-- main chat writes the plan
-- background agent checks the affected test suite
-- background agent inspects a separate subsystem for integration risk
-- main chat synthesizes those results and decides what to implement
-
-Bad example:
-
-- multiple agents editing the same files at once
-- asking a background agent to "just do everything"
+Do not duplicate these templates elsewhere in the repo.
 
 ## How To Drop This Into A Repo
 
 1. Copy `AGENTS.md` to the repo root.
 2. Copy `.cursor/rules` into the repo root.
-3. For the infra repo, also copy `variants/terraform/.cursor/rules/50-terraform-infra.mdc` into that repo's `.cursor/rules`.
-4. For the Databricks repo, also copy `variants/python-databricks/.cursor/rules/50-python-databricks.mdc` into that repo's `.cursor/rules`.
-5. Copy `review-skills` into the repo if you want reusable PR review profiles.
-6. Add `plan.md` and `todo.md` to the repo root.
-7. In Cursor, create the `Plan`, `Build`, and `Review` modes from the prompts above.
-8. Optionally create `Review: Standards` and `Review: Performance` from [REVIEW_MODE_PROMPTS.md](REVIEW_MODE_PROMPTS.md).
-9. Optionally create `Review: Simplify` and `Review: Cross-Repo Impact` from [REVIEW_MODE_PROMPTS.md](REVIEW_MODE_PROMPTS.md).
-10. Start using `Plan` for any non-trivial task before switching to `Build`.
+3. Copy `openspec-template/system-atlas.md` to `system-atlas.md`.
+4. Copy `openspec-template/docs/sdd/sdd-template.md` into `docs/sdd/`.
+5. Copy `openspec-template/docs/srs/srs-template.md` into `docs/srs/`.
+6. Add or initialize `openspec/`.
+7. Copy `review-skills/spec-triage`, `review-skills/pr-style-standards`, `review-skills/pr-performance`, `review-skills/sdd-update`, and `review-skills/srs-update` if you want reusable prompt-backed skills.
+8. Optionally copy `plan.md` and `todo.md` for non-spec fallback work.
+9. In Cursor, create the recommended custom modes from the prompt files above.

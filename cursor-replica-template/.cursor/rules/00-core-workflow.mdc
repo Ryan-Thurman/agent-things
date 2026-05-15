@@ -17,10 +17,12 @@ Execution flow:
 
 1. Understand the request.
 2. Explore relevant files and patterns.
-3. If the task is non-trivial, write a plan to `plan.md` and wait for approval.
-4. After approval, implement with minimal diffs.
-5. Verify with focused checks.
-6. Summarize the outcome, validation, and remaining risk.
+3. If the task is non-trivial and changes behavior, interfaces, workflows, or cross-system boundaries, draft or update the relevant OpenSpec change and supporting docs.
+4. For non-spec internal work, use `plan.md` only when a lightweight plan is still useful.
+5. Wait for approval before implementing non-trivial changes.
+6. Implement with minimal diffs and keep spec or task artifacts in sync.
+7. Verify with focused checks.
+8. Summarize the outcome, validation, and remaining risk.
 
 When not to plan:
 

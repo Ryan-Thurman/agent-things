@@ -3,10 +3,12 @@ description: Keep a lightweight task list in todo.md during implementation
 alwaysApply: true
 ---
 
-For multi-step implementation work, maintain `todo.md`.
+For multi-step implementation work, maintain a task list.
 
 Requirements:
 
+- For OpenSpec-driven work, prefer `openspec/changes/.../tasks.md`.
+- For non-spec implementation work, use `todo.md`.
 - Break the work into concrete tasks.
 - Keep exactly one task marked `in_progress`.
 - Mark tasks `done` immediately after they are actually complete.

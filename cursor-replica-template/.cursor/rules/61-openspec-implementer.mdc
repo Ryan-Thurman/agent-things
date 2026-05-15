@@ -1,0 +1,20 @@
+---
+description: Implement from approved OpenSpec tasks and keep specs aligned during execution
+globs: ["src/**", "app/**", "services/**", "packages/**", "terraform/**", "infra/**", "jobs/**", "notebooks/**"]
+alwaysApply: false
+---
+
+When working on an approved OpenSpec change:
+
+- keep the active `openspec/changes/.../tasks.md` in context
+- implement from the approved proposal, design, and task breakdown
+- update task progress as implementation proceeds
+- flag spec drift immediately if the implementation reveals that the design is wrong
+
+Rules:
+
+- Do not silently diverge from the approved spec.
+- If code changes alter contracts, update the relevant spec or task artifacts in the same branch.
+- If implementation changes workflow intent or behavior, update the relevant SDD in the same branch.
+- If implementation changes requirements, validation rules, or interfaces, update the relevant SRS in the same branch.
+- If the implementation forces a material design change, revise the spec before continuing.

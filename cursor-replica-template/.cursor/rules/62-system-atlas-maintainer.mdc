@@ -1,0 +1,28 @@
+---
+description: Keep the system atlas accurate for cross-repo boundaries and connectivity
+globs: ["**/system-atlas.md", "openspec/**", "docs/sdd/**", "docs/srs/**"]
+alwaysApply: false
+---
+
+`system-atlas.md` is the concise map of how this repository connects to other systems and repos.
+
+When a task affects:
+
+- shared APIs or RPC interfaces
+- events, queues, or topics
+- schemas, tables, or data products
+- buckets, storage paths, or secrets
+- deployment or infrastructure handoffs
+- Databricks jobs, outputs, or consumers
+
+then verify whether `system-atlas.md` should be updated.
+
+Prefer short, concrete entries:
+
+- what this repo owns
+- upstream dependencies
+- downstream consumers
+- risky boundaries
+- coordinated-change flows
+
+Do not let the atlas turn into generic architecture prose.
